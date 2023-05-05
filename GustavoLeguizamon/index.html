@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulacro - Primer Parcial</title>
+
+  <style>
+    .contenedor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .linea {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .oculto {
+      display: none;
+    }
+
+    #formulario-agregar {
+      background-color: red;
+    }
+
+    #listado {
+      background-color: blue;
+    }
+
+    th,
+    td {
+      border: solid 2px black;
+    }
+  </style>
+</head>
+
+<body class="contenedor">
+  <div id="listado">
+    <div class="linea">
+      <label>Form Datos</label>
+    </div>
+
+    <div class="linea">
+      <label for="filtro">Filtrar por</label>
+      <select name="filtro" id="filtro">
+        <option value="todos">Todos</option>
+        <option value="heroes">Heroes</option>
+        <option value="villanos">Villanos</option>
+      </select>
+    </div>
+
+    <div class="linea">
+      <label for="edadPromedio">Calcular edad promedio</label>
+      <input type="text" name="edadPromedio" id="edadPromedio">
+      <button id="btn-calcular-edad-promedio" type="button">Calcular</button>
+    </div>
+
+    <div class="linea">Mostrar columnas</div>
+    <div class="linea">
+      <div class="checks-columna">
+        <label for="ckeck-id">ID</label>
+        <input id="ckeck-id" type="checkbox" columna-destino="id">
+      </div>
+      <div class="checks-columna">
+        <label for="ckeck-nombre">Nombre</label>
+        <input id="ckeck-nombre" type="checkbox" columna-destino="nombre">
+      </div>
+      <div class="checks-columna">
+        <label for="ckeck-apellido">Apellido</label>
+        <input id="ckeck-apellido" type="checkbox" columna-destino="apellido">
+      </div>
+      <div class="checks-columna">
+        <label for="ckeck-edad">Edad</label>
+        <input id="ckeck-edad" type="checkbox" columna-destino="edad">
+      </div>
+      <div class="checks-columna checks-columna-heroe">
+        <label for="ckeck-alterego">Alterego</label>
+        <input id="ckeck-alterego" type="checkbox" columna-destino="alterego">
+      </div>
+      <div class="checks-columna checks-columna-heroe">
+        <label for="ckeck-ciudad">Ciudad</label>
+        <input id="ckeck-ciudad" type="checkbox" columna-destino="ciudad">
+      </div>
+      <div class="checks-columna checks-columna-heroe">
+        <label for="ckeck-publicado">Publicado</label>
+        <input id="ckeck-publicado" type="checkbox" columna-destino="publicado">
+      </div>
+      <div class="checks-columna checks-columna-villano">
+        <label for="ckeck-enemigo">Enemigo</label>
+        <input id="ckeck-enemigo" type="checkbox" columna-destino="enemigo">
+      </div>
+      <div class="checks-columna checks-columna-villano">
+        <label for="ckeck-robos">Robos</label>
+        <input id="ckeck-robos" type="checkbox" columna-destino="robos">
+      </div>
+      <div class="checks-columna checks-columna-villano">
+        <label for="ckeck-asesinatos">Asesinatos</label>
+        <input id="ckeck-asesinatos" type="checkbox" columna-destino="asesinatos">
+      </div>
+    </div>
+
+    <div class="linea">
+      <div id="contenedor-tabla">
+
+      </div>
+    </div>
+
+    <div class="linea">
+      <button id="btn-agregar" type="button">Agregar</button>
+    </div>
+  </div>
+
+  <form id="formulario-agregar" class="oculto" action="">
+    <div class="linea">
+      <h3>Formulario ABM</h3>
+    </div>
+
+    <div class="linea">
+      <select name="formularioTipo" id="formulario-tipo">
+        <option value="heroe">Heroe</option>
+        <option value="villano">Villano</option>
+      </select>
+    </div>
+    <div class="linea">
+      <label for="id">ID: </label>
+      <input type="text" name="id" disabled>
+    </div>
+    <div class="linea">
+      <label for="nombre">Nombre: </label>
+      <input type="text" name="nombre">
+    </div>
+    <div class="linea">
+      <label for="apellido">Apellido: </label>
+      <input type="text" name="apellido">
+    </div>
+    <div class="linea">
+      <label for="edad">Edad: </label>
+      <input type="number" name="edad" min="0" step="1">
+    </div>
+    <div id="formulario-campos-heroe">
+      <div class="linea">
+        <label for="alterego">Alterego: </label>
+        <input type="text" name="alterego">
+      </div>
+      <div class="linea">
+        <label for="ciudad">Ciudad: </label>
+        <input type="text" name="ciudad">
+      </div>
+      <div class="linea">
+        <label for="publicado">Publicado: </label>
+        <input type="number" name="publicado" min="1941" step="1">
+      </div>
+    </div>
+    <div id="formulario-campos-villano">
+      <div class="linea">
+        <label for="enemigo">Enemigo: </label>
+        <input type="text" name="enemigo">
+      </div>
+      <div class="linea">
+        <label for="robos">Robos: </label>
+        <input type="number" name="robos" min="0" , step="1">
+      </div>
+      <div class="linea">
+        <label for="asesinatos">Asesinatos: </label>
+        <input type="number" name="asesinatos" min="0" step="1">
+      </div>
+    </div>
+
+    <div class="linea">
+      <button id="btn-alta" type="button">Alta</button>
+      <button id="btn-modificar" type="button">Modificar</button>
+      <button id="btn-eliminar" type="button">Eliminar</button>
+      <button id="btn-cancelar" type="button">Cancelar</button>
+    </div>
+  </form>
+
+  <!-- FUNCIONES GENERALES -->
+  <script>
+    function isNull(value) {
+      return value == null; //null == undefined
+    }
+
+    function isNullOrEmpty(value) {
+      return isNull(value) || value === "";
+    }
+
+    function isNumeric(value) {
+      return !isNull(value) && !isNaN(value) && !isNaN(parseFloat(value))
+    }
+  </script>
+
+  <!-- CLASES -->
+  <script>
+    class Persona {
+      #id;
+      #nombre;
+      #apellido;
+      #edad;
+
+      constructor(id, nombre, apellido, edad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+      }
+
+      get id() {
+        return this.#id;
+      }
+
+      set id(nuevoValor) {
+        if (!isNumeric(nuevoValor))
+          return;
+        this.#id = parseInt(nuevoValor);
+      }
+
+      get nombre() {
+        return this.#nombre;
+      }
+
+      set nombre(nuevoValor) {
+        if (isNull(nuevoValor))
+          return;
+        this.#nombre = nuevoValor;
+      }
+
+      get apellido() {
+        return this.#apellido;
+      }
+
+      set apellido(nuevoValor) {
+        if (isNull(nuevoValor))
+          return;
+        this.#apellido = nuevoValor;
+      }
+
+      get edad() {
+        return this.#edad;
+      }
+
+      set edad(nuevoValor) {
+        if (!isNumeric(nuevoValor))
+          return;
+        this.#edad = parseInt(nuevoValor);
+      }
+    }
+
+    class Heroe extends Persona {
+      #alterego;
+      #ciudad;
+      #publicado;
+
+      constructor(id, nombre, apellido, edad, alterego, ciudad, publicado) {
+        super(id, nombre, apellido, edad);
+
+        this.#alterego = alterego;
+        this.#ciudad = ciudad;
+        this.#publicado = publicado;
+      }
+
+      get alterego() {
+        return this.#alterego;
+      }
+
+      set alterego(nuevoValor) {
+        if (isNull(nuevoValor))
+          return;
+        this.#alterego = nuevoValor;
+      }
+
+      get ciudad() {
+        return this.#ciudad;
+      }
+
+      set ciudad(nuevoValor) {
+        if (isNull(nuevoValor))
+          return;
+        this.#ciudad = nuevoValor;
+      }
+
+      get publicado() {
+        return this.#publicado;
+      }
+
+      set publicado(nuevoValor) {
+        if (!isNumeric(nuevoValor))
+          return;
+
+        let valor = parseInt(nuevoValor);
+        if (valor < 1940)
+          return;
+
+        this.#publicado = valor;
+      }
+    }
+
+    class Villano extends Persona {
+      #enemigo;
+      #robos;
+      #asesinatos;
+
+      constructor(id, nombre, apellido, edad, enemigo, robos, asesinatos) {
+        super(id, nombre, apellido, edad);
+
+        this.#enemigo = enemigo;
+        this.#robos = robos;
+        this.#asesinatos = asesinatos;
+      }
+
+      get enemigo() {
+        return this.#enemigo;
+      }
+
+      set enemigo(nuevoValor) {
+        if (isNull(nuevoValor))
+          return;
+        this.#enemigo = nuevoValor;
+      }
+
+      get robos() {
+        return this.#robos;
+      }
+
+      set robos(nuevoValor) {
+        if (!isNumeric(nuevoValor))
+          return;
+
+        let valor = parseInt(nuevoValor);
+        if (valor < 0)
+          return;
+
+        this.#robos = valor;
+      }
+
+      get asesinatos() {
+        return this.#asesinatos;
+      }
+
+      set asesinatos(nuevoValor) {
+        if (!isNumeric(nuevoValor))
+          return;
+
+        let valor = parseInt(nuevoValor);
+        if (valor < 0)
+          return;
+
+        this.#asesinatos = valor;
+      }
+    }
+  </script>
+
+  <!-- DATOS -->
+  <script>
+    const json = [
+      {
+        "id": 1,
+        "nombre": "Clark",
+        "apellido": "Kent",
+        "edad": 45,
+        "alterego": "Superman",
+        "ciudad": "Metropolis",
+        "publicado": 2002
+      },
+      {
+        "id": 2,
+        "nombre": "Bruce",
+        "apellido": "Wayne",
+        "edad": 35,
+        "alterego": "Batman",
+        "ciudad": "Gotica",
+        "publicado": 20012
+      },
+      {
+        "id": 3,
+        "nombre": "Bart",
+        "apellido": "Alen",
+        "edad": 30,
+        "alterego": "Flash",
+        "ciudad": "Central",
+        "publicado": 2017
+      },
+      {
+        "id": 4,
+        "nombre": "Lex",
+        "apellido": "Luthor",
+        "edad": 18,
+        "enemigo": "Superman",
+        "robos": 500,
+        "asesinatos": 7
+      },
+      {
+        "id": 5,
+        "nombre": "Harvey",
+        "apellido": "Dent",
+        "edad": 20,
+        "enemigo": "Batman",
+        "robos": 750,
+        "asesinatos": 2
+      },
+      {
+        "id": 666,
+        "nombre": "Celina",
+        "apellido": "kyle",
+        "edad": 23,
+        "enemigo": "Batman",
+        "robos": 25,
+        "asesinatos": 1
+      }
+    ];
+
+  </script>
+
+  <!-- MANIPULACION DE DATOS -->
+  <script>
+    const heroes = [];
+    const villanos = [];
+    json.forEach(elemento => {
+      if (elemento["alterego"]) {
+        heroes.push(new Heroe(elemento.id, elemento.nombre, elemento.apellido, elemento.edad, elemento.alterego, elemento.ciudad, elemento.publicado));
+      }
+      else if (elemento["enemigo"]) {
+        villanos.push(new Villano(elemento.id, elemento.nombre, elemento.apellido, elemento.edad, elemento.enemigo, elemento.robos, elemento.asesinatos));
+      }
+    });
+  </script>
+
+  <!-- VARIABLES DE CONTROL -->
+  <script>
+    let elementosFiltrados = [...heroes, ...villanos];
+    let cabeceraOrden = {
+      id: "asc",
+      nombre: "asc",
+      apellido: "asc",
+      edad: "asc",
+      alterego: "asc",
+      ciudad: "asc",
+      publicado: "asc",
+      enemigo: "asc",
+      robos: "asc",
+      asesinatos: "asc",
+    }
+    let cabecerasGenerales = [
+      { propiedad: "id", texto: "id", orden: 1 },
+      { propiedad: "nombre", texto: "nombre", orden: 2 },
+      { propiedad: "apellido", texto: "apellido", orden: 3 },
+      { propiedad: "edad", texto: "edad", orden: 4 }
+    ];
+    let cabecerasHeroe = [
+      { propiedad: "alterego", texto: "alterego", orden: 5, clase: "datos-heroe" },
+      { propiedad: "ciudad", texto: "ciudad", orden: 6, clase: "datos-heroe" },
+      { propiedad: "publicado", texto: "publicado", orden: 7, clase: "datos-heroe" },
+    ];
+    let cabecerasVillano = [
+      { propiedad: "enemigo", texto: "enemigo", orden: 8, clase: "datos-villano" },
+      { propiedad: "robos", texto: "robos", orden: 9, clase: "datos-villano" },
+      { propiedad: "asesinatos", texto: "asesinatos", orden: 10, clase: "datos-villano" },
+    ];
+  </script>
+
+  <!-- ORDENAMIENTOS -->
+  <script>
+    const ordenarPorIdAsc = (a, b) => a.id - b.id;
+    const ordenarPorIdDesc = (a, b) => b.id - a.id;
+
+    const ordenarPorNombreAsc = (a, b) => {
+      if (a.nombre < b.nombre) {
+        return -1;
+      }
+      if (a.nombre > b.nombre) {
+        return 1;
+      }
+      return 0;
+    }
+    const ordenarPorNombreDesc = (a, b) => {
+      if (a.nombre > b.nombre) {
+        return -1;
+      }
+      if (a.nombre < b.nombre) {
+        return 1;
+      }
+      return 0;
+    }
+
+    const ordenarPorApellidoAsc = (a, b) => {
+      if (a.apellido < b.apellido) {
+        return -1;
+      }
+      if (a.apellido > b.apellido) {
+        return 1;
+      }
+      return 0;
+    }
+    const ordenarPorApellidoDesc = (a, b) => {
+      if (a.apellido > b.apellido) {
+        return -1;
+      }
+      if (a.apellido < b.apellido) {
+        return 1;
+      }
+      return 0;
+    }
+
+    const ordenarPorEdadAsc = (a, b) => a.edad - b.edad;
+    const ordenarPorEdadDesc = (a, b) => b.edad - a.edad;
+
+    const ordenarPorAlteregoAsc = (a, b) => {
+      if (a.alterego < b.alterego) {
+        return -1;
+      }
+      if (a.alterego > b.alterego) {
+        return 1;
+      }
+      return 0;
+    }
+    const ordenarPorAlteregoDesc = (a, b) => {
+      if (a.alterego > b.alterego) {
+        return -1;
+      }
+      if (a.alterego < b.alterego) {
+        return 1;
+      }
+      return 0;
+    }
+
+    const ordenarPorCiudadAsc = (a, b) => {
+      if (a.ciudad < b.ciudad) {
+        return -1;
+      }
+      if (a.ciudad > b.ciudad) {
+        return 1;
+      }
+      return 0;
+    }
+    const ordenarPorCiudadDesc = (a, b) => {
+      if (a.ciudad > b.ciudad) {
+        return -1;
+      }
+      if (a.ciudad < b.ciudad) {
+        return 1;
+      }
+      return 0;
+    }
+
+    const ordenarPorPublicadoAsc = (a, b) => a.publicado - b.publicado;
+    const ordenarPorPublicadoDesc = (a, b) => b.publicado - a.publicado;
+
+    const ordenarPorEnemigoAsc = (a, b) => {
+      if (a.enemigo < b.enemigo) {
+        return -1;
+      }
+      if (a.enemigo > b.enemigo) {
+        return 1;
+      }
+      return 0;
+    }
+    const ordenarPorEnemigoDesc = (a, b) => {
+      if (a.enemigo > b.enemigo) {
+        return -1;
+      }
+      if (a.enemigo < b.enemigo) {
+        return 1;
+      }
+      return 0;
+    }
+
+    const ordenarPorRobosAsc = (a, b) => a.robos - b.robos;
+    const ordenarPorRobosDesc = (a, b) => b.robos - a.robos;
+
+    const ordenarPorAsesinatosAsc = (a, b) => a.asesinatos - b.asesinatos;
+    const ordenarPorAsesinatosDesc = (a, b) => b.asesinatos - a.asesinatos;
+  </script>
+
+  <script>
+    const $ = (selector) => {
+      let elementos = document.querySelectorAll(selector);
+      if (elementos.length === 1) {
+        return elementos[0];
+      }
+      return elementos;
+    }
+
+    const agregarEvento = (elemento, evento, funcion) => {
+      elemento.addEventListener(evento, funcion);
+    }
+
+    const agregarEventos = (elementos, evento, funcion) => {
+      elementos.forEach(e => {
+        agregarEvento(e, evento, funcion)
+      });
+    }
+
+    const proximoId = (listado) => {
+      let idMaximoActual = listado.reduce((valorAnterior, elementoActual, indiceActual, array) => {
+        if (elementoActual.id > valorAnterior)
+          return elementoActual.id;
+        return valorAnterior;
+      }, 1);
+      return idMaximoActual + 1;
+    }
+
+    const crearCeldaTh = (texto) => {
+      let th = document.createElement("th");
+      let nodoTexto = document.createTextNode(texto);
+      th.append(nodoTexto);
+      return th;
+    }
+
+    const crearCeldaTd = (texto) => {
+      let td = document.createElement("td");
+      let nodoTexto = document.createTextNode(texto);
+      td.append(nodoTexto);
+      return td;
+    }
+
+    const mostrarElemento = (elemento) => {
+      elemento.classList.remove("oculto");
+    }
+
+    const ocultarElemento = (elemento) => {
+      elemento.classList.add("oculto");
+    }
+
+    const mostrarElementos = (coleccionElementos) => {
+      for (let i = 0; i < coleccionElementos.length; i++) {
+        mostrarElemento(coleccionElementos[i]);
+      }
+    }
+
+    const ocultarElementos = (coleccionElementos) => {
+      for (let i = 0; i < coleccionElementos.length; i++) {
+        ocultarElemento(coleccionElementos[i]);
+      }
+    }
+
+    const mostrarColumnas = (columnas) => {
+      for (let i = 0; i < columnas.length; i++) {
+        mostrarElementos($(`[columna=${columnas[i]}]`));
+      }
+    }
+
+    const ocultarColumnas = (columnas) => {
+      for (let i = 0; i < columnas.length; i++) {
+        ocultarElementos($(`[columna=${columnas[i]}]`));
+      }
+    }
+
+    const actualizarListado = () => {
+      $("#filtro").dispatchEvent(new Event('change'));
+    }
+
+    const mostrarFormulario = (event) => {
+      const formularioABM = $("#formulario-agregar");
+      switch (event.currentTarget.tagName) {
+        case "TR":
+          const tr = event.currentTarget;
+          let id, nombre, apellido, edad, alterego, ciudad, publicado, enemigo, robos, asesinatos;
+
+          id = tr.dataset.id;
+          nombre = tr.dataset.nombre;
+          apellido = tr.dataset.apellido;
+          edad = tr.dataset.edad;
+
+          if (tr.classList.contains("datos-heroe")) {
+            formularioABM.formularioTipo.value = "heroe";
+            formularioABM.formularioTipo.setAttribute("disabled", "disabled");
+            formularioABM.formularioTipo.dispatchEvent(new Event('change'));
+            alterego = tr.dataset.alterego;
+            ciudad = tr.dataset.ciudad;
+            publicado = tr.dataset.publicado;
+          }
+          else if (tr.classList.contains("datos-villano")) {
+            formularioABM.formularioTipo.value = "villano";
+            formularioABM.formularioTipo.setAttribute("disabled", "disabled");
+            formularioABM.formularioTipo.dispatchEvent(new Event('change'));
+            enemigo = tr.dataset.enemigo;
+            robos = tr.dataset.robos;
+            asesinatos = tr.dataset.asesinatos;
+          }
+
+          formularioABM.id.value = id;
+          formularioABM.nombre.value = nombre;
+          formularioABM.apellido.value = apellido;
+          formularioABM.edad.value = edad;
+          formularioABM.alterego.value = alterego;
+          formularioABM.ciudad.value = ciudad;
+          formularioABM.publicado.value = publicado;
+          formularioABM.enemigo.value = enemigo;
+          formularioABM.robos.value = robos;
+          formularioABM.asesinatos.value = asesinatos;
+
+          ocultarElemento($("#btn-alta"));
+          mostrarElemento($("#btn-modificar"));
+          mostrarElemento($("#btn-eliminar"));
+          break;
+
+        case "BUTTON":
+          formularioABM.formularioTipo.value = "heroe";
+          formularioABM.formularioTipo.removeAttribute("disabled");
+          formularioABM.formularioTipo.dispatchEvent(new Event('change'));
+
+          mostrarElemento($("#btn-alta"));
+          ocultarElemento($("#btn-modificar"));
+          ocultarElemento($("#btn-eliminar"));
+          break;
+
+        default:
+          break;
+      }
+
+      ocultarElemento($("#listado"));
+
+      mostrarElemento(formularioABM);
+    }
+
+    const ocultarFormulario = (event) => {
+      actualizarListado();
+
+      mostrarElemento($("#listado"));
+
+      let formulario = $("#formulario-agregar");
+      formulario.reset();
+      ocultarElemento(formulario);
+    }
+
+    const validarDatosFormulario = (formularioABM) => {
+      if (isNullOrEmpty(formularioABM.nombre.value)) {
+        alert("Debe indicar un nombre");
+        return false;
+      }
+      if (isNullOrEmpty(formularioABM.apellido.value)) {
+        alert("Debe indicar un apellido");
+        return false;
+      }
+      if (!isNumeric(formularioABM.edad.value)) {
+        alert("Debe indicar un valor de edad numerico");
+        return false;
+      }
+
+      switch (formularioABM.formularioTipo.value) {
+        case "heroe":
+          if (isNullOrEmpty(formularioABM.alterego.value)) {
+            alert("Debe indicar un alterego");
+            return false;
+          }
+          if (isNullOrEmpty(formularioABM.ciudad.value)) {
+            alert("Debe indicar una ciudad");
+            return false;
+          }
+          if (!isNumeric(formularioABM.publicado.value)) {
+            alert("Debe indicar un valor de publicacion numerico");
+            return false;
+          }
+          if (parseInt(formularioABM.publicado.value) < 1941) {
+            alert("Debe indicar un valor de edad mayor a 1940");
+            return false;
+          }
+
+          break;
+
+        case "villano":
+          if (isNullOrEmpty(formularioABM.enemigo.value)) {
+            alert("Debe indicar un enemigo");
+            return false;
+          }
+          if (!isNumeric(formularioABM.robos.value)) {
+            alert("Debe indicar un valor de robos numerico");
+            return false;
+          }
+          if (parseFloat(formularioABM.robos.value) < 1) {
+            alert("Debe indicar un valor de robos mayor a cero");
+            return false;
+          }
+          if (!isNumeric(formularioABM.asesinatos.value)) {
+            alert("Debe indicar un valor de asesinatos numerico");
+            return false;
+          }
+          if (parseFloat(formularioABM.asesinatos.value) < 1) {
+            alert("Debe indicar un valor de asesinatos mayor a cero");
+            return false;
+          }
+
+          break;
+
+        default:
+          return false;
+          break;
+      }
+
+      return true;
+    }
+
+    const esOrdenAsc = (elemento) => elemento.getAttribute("orden") === "asc";
+
+    const cambiarOrden = (elemento) => {
+      if (esOrdenAsc(elemento)) {
+        cabeceraOrden[event.target.getAttribute("propiedad")] = "desc";
+      }
+      else {
+        cabeceraOrden[event.target.getAttribute("propiedad")] = "asc";
+      }
+    }
+
+    const ordenarFilas = (event) => {
+      switch (event.target.getAttribute("propiedad")) {
+        case "id":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorIdAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorIdDesc);
+          }
+          break;
+
+        case "nombre":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorNombreAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorNombreDesc);
+          }
+          break;
+
+        case "apellido":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorApellidoAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorApellidoDesc);
+          }
+          break;
+
+        case "edad":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorEdadAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorEdadDesc);
+          }
+          break;
+
+        case "alterego":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorAlteregoAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorAlteregoDesc);
+          }
+          break;
+
+        case "ciudad":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorCiudadAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorCiudadDesc);
+          }
+          break;
+
+        case "publicado":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorPublicadoAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorPublicadoDesc);
+          }
+          break;
+
+        case "enemigo":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorEnemigoAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorEnemigoDesc);
+          }
+          break;
+
+        case "robos":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorRobosAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorRobosDesc);
+          }
+          break;
+
+        case "asesinatos":
+          if (esOrdenAsc(event.target)) {
+            elementosFiltrados.sort(ordenarPorAsesinatosAsc);
+          }
+          else {
+            elementosFiltrados.sort(ordenarPorAsesinatosDesc);
+          }
+          break;
+
+        default:
+          return;
+          break;
+      }
+      cambiarOrden(event.target);
+
+      actualizarListado();
+    }
+
+    const manejarCheckColumna = (event) => {
+      let columna = event.target.getAttribute("columna-destino");
+      if (event.target.checked) {
+        mostrarColumnas([columna])
+      }
+      else {
+        ocultarColumnas([columna])
+      }
+    }
+
+    const construirCabeceras = (thead, cabeceras) => {
+      let cabecerasOrdenadas = cabeceras.sort((a, b) => a.orden - b.orden);
+
+      let tr = document.createElement("tr");
+      cabecerasOrdenadas.forEach((item) => {
+        let th = document.createElement("th");
+
+        let nodoTexto = document.createTextNode(item.texto);
+
+        let boton = document.createElement("button");
+        boton.setAttribute("type", "button");
+        boton.setAttribute("propiedad", item.propiedad);
+        boton.setAttribute("orden", cabeceraOrden[item.propiedad]);
+        agregarEvento(boton, "click", ordenarFilas);
+        boton.append(nodoTexto);
+
+        th.append(boton);
+
+        th.classList.add(item.clase);
+        th.setAttribute("columna", item.propiedad);
+        tr.append(th);
+      });
+      thead.append(tr);
+    }
+
+    const agregarFilaHeroe = (tbody, heroe) => {
+      let tr = document.createElement("tr");
+      tr.classList.add("datos-heroe");
+
+      let celdaId = crearCeldaTd(heroe.id);
+      celdaId.setAttribute("columna", "id");
+      tr.dataset.id = heroe.id;
+      tr.append(celdaId);
+
+      let celdaNombre = crearCeldaTd(heroe.nombre);
+      celdaNombre.setAttribute("columna", "nombre");
+      tr.dataset.nombre = heroe.nombre;
+      tr.append(celdaNombre);
+
+      let celdaApellido = crearCeldaTd(heroe.apellido);
+      celdaApellido.setAttribute("columna", "apellido");
+      tr.dataset.apellido = heroe.apellido;
+      tr.append(celdaApellido);
+
+      let celdaEdad = crearCeldaTd(heroe.edad);
+      celdaEdad.setAttribute("columna", "edad");
+      tr.dataset.edad = heroe.edad;
+      tr.append(celdaEdad);
+
+      let celdaAlterego = crearCeldaTd(heroe.alterego);
+      celdaAlterego.classList.add("datos-heroe");
+      celdaAlterego.setAttribute("columna", "alterego");
+      tr.dataset.alterego = heroe.alterego;
+      tr.append(celdaAlterego);
+
+      let celdaCiudad = crearCeldaTd(heroe.ciudad);
+      celdaCiudad.classList.add("datos-heroe");
+      celdaCiudad.setAttribute("columna", "ciudad");
+      tr.dataset.ciudad = heroe.ciudad;
+      tr.append(celdaCiudad);
+
+      let celdaPublicado = crearCeldaTd(heroe.publicado);
+      celdaPublicado.classList.add("datos-heroe");
+      celdaPublicado.setAttribute("columna", "publicado");
+      tr.dataset.publicado = heroe.publicado;
+      tr.append(celdaPublicado);
+
+      let celdaEnemigo = crearCeldaTd("");
+      celdaEnemigo.classList.add("datos-villano");
+      celdaEnemigo.setAttribute("columna", "enemigo");
+      tr.append(celdaEnemigo);
+
+      let celdaRobos = crearCeldaTd("");
+      celdaRobos.classList.add("datos-villano");
+      celdaRobos.setAttribute("columna", "robos");
+      tr.append(celdaRobos);
+
+      let celdaAsesinatos = crearCeldaTd("");
+      celdaAsesinatos.classList.add("datos-villano");
+      celdaAsesinatos.setAttribute("columna", "asesinatos");
+      tr.append(celdaAsesinatos);
+
+      agregarEvento(tr, "dblclick", mostrarFormulario);
+
+      tbody.append(tr);
+    }
+
+    const agregarFilaVillano = (tbody, villano) => {
+      let tr = document.createElement("tr");
+      tr.classList.add("datos-villano");
+
+      let celdaId = crearCeldaTd(villano.id);
+      celdaId.setAttribute("columna", "id");
+      tr.dataset.id = villano.id;
+      tr.append(celdaId);
+
+      let celdaNombre = crearCeldaTd(villano.nombre);
+      celdaNombre.setAttribute("columna", "nombre");
+      tr.dataset.nombre = villano.nombre;
+      tr.append(celdaNombre);
+
+      let celdaApellido = crearCeldaTd(villano.apellido);
+      celdaApellido.setAttribute("columna", "apellido");
+      tr.dataset.apellido = villano.apellido;
+      tr.append(celdaApellido);
+
+      let celdaEdad = crearCeldaTd(villano.edad);
+      celdaEdad.setAttribute("columna", "edad");
+      tr.dataset.edad = villano.edad;
+      tr.append(celdaEdad);
+
+      let celdaAlterego = crearCeldaTd("");
+      celdaAlterego.classList.add("datos-heroe");
+      celdaAlterego.setAttribute("columna", "alterego");
+      tr.append(celdaAlterego);
+
+      let celdaCiudad = crearCeldaTd("");
+      celdaCiudad.classList.add("datos-heroe");
+      celdaCiudad.setAttribute("columna", "ciudad");
+      tr.append(celdaCiudad);
+
+      let celdaPublicado = crearCeldaTd("");
+      celdaPublicado.classList.add("datos-heroe");
+      celdaPublicado.setAttribute("columna", "publicado");
+      tr.append(celdaPublicado);
+
+      let celdaEnemigo = crearCeldaTd(villano.enemigo);
+      celdaEnemigo.classList.add("datos-villano");
+      celdaEnemigo.setAttribute("columna", "enemigo");
+      tr.dataset.enemigo = villano.enemigo;
+      tr.append(celdaEnemigo);
+
+      let celdaRobos = crearCeldaTd(villano.robos);
+      celdaRobos.classList.add("datos-villano");
+      celdaRobos.setAttribute("columna", "robos");
+      tr.dataset.robos = villano.robos;
+      tr.append(celdaRobos);
+
+      let celdaAsesinatos = crearCeldaTd(villano.asesinatos);
+      celdaAsesinatos.classList.add("datos-villano");
+      celdaAsesinatos.setAttribute("columna", "asesinatos");
+      tr.dataset.asesinatos = villano.asesinatos;
+      tr.append(celdaAsesinatos);
+
+      agregarEvento(tr, "dblclick", mostrarFormulario);
+
+      tbody.append(tr);
+    }
+
+    const construirTabla = (elementos) => {
+      const contenedorTabla = $("#contenedor-tabla");
+      let tabla = contenedorTabla.getElementsByTagName("table")[0];
+      if (tabla) {
+        destruirTabla(tabla);
+      }
+      tabla = document.createElement("table");
+
+      const thead = document.createElement("thead");
+      tabla.append(thead);
+
+      const tbody = document.createElement("tbody");
+      tabla.append(tbody);
+
+      contenedorTabla.append(tabla);
+
+      let cabeceras = [...cabecerasGenerales];
+
+      if (elementos.some(elemento => elemento instanceof Heroe)) {
+        cabeceras.push(...cabecerasHeroe);
+      }
+
+      if (elementos.some(elemento => elemento instanceof Villano)) {
+        cabeceras.push(...cabecerasVillano);
+      }
+
+      construirCabeceras(thead, cabeceras);
+
+      elementos.forEach(elemento => {
+        if (elemento instanceof Heroe) {
+          agregarFilaHeroe(tbody, elemento);
+        }
+        else if (elemento instanceof Villano) {
+          agregarFilaVillano(tbody, elemento);
+        }
+      });
+    }
+
+    const destruirTabla = (tabla) => {
+      if (tabla)
+        tabla.remove();
+    }
+
+    const checkearCabeceras = () => {
+      $(".checks-columna input").forEach(e => {
+        e.checked = true;
+      });
+    }
+  </script>
+
+  <!-- EVENTOS -->
+  <script>
+    agregarEvento(window, "load", () => {
+      construirTabla(elementosFiltrados);
+
+      checkearCabeceras();
+      $("#filtro").value = "todos";
+    });
+
+    agregarEvento($("#filtro"), "change", (event) => {
+      switch (event.target.value) {
+        case "heroes":
+          elementosFiltrados = heroes;
+          construirTabla(elementosFiltrados);
+          ocultarColumnas(["enemigo", "robos", "asesinatos"]);
+          ocultarElementos($(".checks-columna-villano"));
+          mostrarElementos($(".checks-columna-heroe"));
+          break;
+
+        case "villanos":
+          elementosFiltrados = villanos;
+          construirTabla(elementosFiltrados);
+          ocultarColumnas(["alterego", "ciudad", "publicado"]);
+          ocultarElementos($(".checks-columna-heroe"));
+          mostrarElementos($(".checks-columna-villano"));
+          break;
+
+        default:
+          elementosFiltrados = [...heroes, ...villanos];
+          construirTabla(elementosFiltrados);
+          mostrarElementos($(".checks-columna-heroe"));
+          mostrarElementos($(".checks-columna-villano"));
+          break;
+      }
+      $("#edadPromedio").value = "";
+      checkearCabeceras();
+    });
+
+    agregarEvento($("#btn-calcular-edad-promedio"), "click", () => {
+      let suma = elementosFiltrados.reduce((valorPrevio, elementoActual, indiceActual, array) => {
+        return valorPrevio + elementoActual.edad;
+      }, 0);
+      let promedio = suma / elementosFiltrados.length;
+      $("#edadPromedio").value = promedio;
+    });
+
+    agregarEvento($("#btn-agregar"), "click", mostrarFormulario);
+
+    agregarEvento($("#btn-alta"), "click", (event) => {
+      const formularioABM = $("#formulario-agregar");
+
+      if (!validarDatosFormulario(formularioABM)){
+        return false;
+      }
+
+      switch (formularioABM.formularioTipo.value) {
+        case "heroe":
+          let heroe = heroes.find(c => c.id === parseInt(formularioABM.id.value));
+          if (!heroe) {
+            let idNuevo = proximoId(heroes);
+            heroe = new Heroe(idNuevo);
+            heroes.push(heroe);
+          }
+          heroe.nombre = formularioABM.nombre.value;
+          heroe.apellido = formularioABM.apellido.value;
+          heroe.edad = formularioABM.edad.value;
+          heroe.alterego = formularioABM.alterego.value;
+          heroe.ciudad = formularioABM.ciudad.value;
+          heroe.publicado = formularioABM.publicado.value;
+          break;
+
+        case "villano":
+          let villano = villanos.find(c => c.id === parseInt(formularioABM.id.value));
+          if (!villano) {
+            let idNuevo = proximoId(villanos);
+            villano = new Villano(idNuevo);
+            villanos.push(villano);
+          }
+          villano.nombre = formularioABM.nombre.value;
+          villano.apellido = formularioABM.apellido.value;
+          villano.edad = formularioABM.edad.value;
+          villano.enemigo = formularioABM.enemigo.value;
+          villano.robos = formularioABM.robos.value;
+          villano.asesinatos = formularioABM.asesinatos.value;
+          break;
+
+        default:
+          break;
+      }
+
+      ocultarFormulario(event);
+    });
+
+    agregarEvento($("#btn-modificar"), "click", (event) => {
+      const formularioABM = $("#formulario-agregar");
+
+      if (!validarDatosFormulario(formularioABM)){
+        return false;
+      }
+
+      switch (formularioABM.formularioTipo.value) {
+        case "heroe":
+          let heroe = heroes.find(c => c.id === parseInt(formularioABM.id.value));
+          if (!heroe) {
+            alert("El heroe no existe");
+            return false;
+          }
+          heroe.nombre = formularioABM.nombre.value;
+          heroe.apellido = formularioABM.apellido.value;
+          heroe.edad = formularioABM.edad.value;
+          heroe.alterego = formularioABM.alterego.value;
+          heroe.ciudad = formularioABM.ciudad.value;
+          heroe.publicado = formularioABM.publicado.value;
+          break;
+
+        case "villano":
+          let villano = villanos.find(c => c.id === parseInt(formularioABM.id.value));
+          if (!villano) {
+            alert("El villano no existe");
+            return false;
+          }
+          villano.nombre = formularioABM.nombre.value;
+          villano.apellido = formularioABM.apellido.value;
+          villano.edad = formularioABM.edad.value;
+          villano.enemigo = formularioABM.enemigo.value;
+          villano.robos = formularioABM.robos.value;
+          villano.asesinatos = formularioABM.asesinatos.value;
+          break;
+
+        default:
+          break;
+      }
+
+      ocultarFormulario(event);
+    });
+
+    agregarEvento($("#btn-cancelar"), "click", ocultarFormulario);
+
+    agregarEvento($("#formulario-tipo"), "change", (event) => {
+      let seccionHeroe = $("#formulario-campos-heroe");
+      let seccionVillano = $("#formulario-campos-villano");
+      switch (event.target.value) {
+        case "heroe":
+          ocultarElemento(seccionVillano);
+          mostrarElemento(seccionHeroe);
+          break;
+
+        case "villano":
+          ocultarElemento(seccionHeroe);
+          mostrarElemento(seccionVillano);
+          break;
+
+        default:
+          break;
+      }
+    });
+
+    agregarEventos($(".checks-columna input"), "change", manejarCheckColumna);
+  </script>
+</body>
+
+</html>
