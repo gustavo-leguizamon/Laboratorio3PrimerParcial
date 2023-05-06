@@ -1170,7 +1170,7 @@
     agregarEvento($("#btn-alta"), "click", (event) => {
       const formularioABM = $("#formulario-agregar");
 
-      if (!validarDatosFormulario(formularioABM)){
+      if (!validarDatosFormulario(formularioABM)) {
         return false;
       }
 
@@ -1178,7 +1178,7 @@
         case "heroe":
           let heroe = heroes.find(c => c.id === parseInt(formularioABM.id.value));
           if (!heroe) {
-            let idNuevo = proximoId(heroes);
+            let idNuevo = proximoId([...heroes, ...villanos]);
             heroe = new Heroe(idNuevo);
             heroes.push(heroe);
           }
@@ -1193,7 +1193,7 @@
         case "villano":
           let villano = villanos.find(c => c.id === parseInt(formularioABM.id.value));
           if (!villano) {
-            let idNuevo = proximoId(villanos);
+            let idNuevo = proximoId([...heroes, ...villanos]);
             villano = new Villano(idNuevo);
             villanos.push(villano);
           }
@@ -1215,7 +1215,7 @@
     agregarEvento($("#btn-modificar"), "click", (event) => {
       const formularioABM = $("#formulario-agregar");
 
-      if (!validarDatosFormulario(formularioABM)){
+      if (!validarDatosFormulario(formularioABM)) {
         return false;
       }
 
@@ -1253,6 +1253,39 @@
       }
 
       ocultarFormulario(event);
+    });
+
+    agregarEvento($("#btn-eliminar"), "click", (event) => {
+      const formularioABM = $("#formulario-agregar");
+      if (confirm("Confirma eliminar el elemento?")) {
+        let index;
+        switch (formularioABM.formularioTipo.value) {
+          case "heroe":
+            let heroe = heroes.find(c => c.id === parseInt(formularioABM.id.value));
+            if (!heroe) {
+              alert("El heroe no existe");
+              return false;
+            }
+            index = heroes.indexOf(heroe);
+            heroes.splice(index, 1);
+            break;
+
+          case "villano":
+            let villano = villanos.find(c => c.id === parseInt(formularioABM.id.value));
+            if (!villano) {
+              alert("El villano no existe");
+              return false;
+            }
+            index = villanos.indexOf(villano);
+            heroes.splice(index, 1);
+            break;
+
+          default:
+            break;
+        }
+
+        ocultarFormulario(event);
+      }
     });
 
     agregarEvento($("#btn-cancelar"), "click", ocultarFormulario);
